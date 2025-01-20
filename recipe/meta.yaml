@@ -6,20 +6,20 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/napari-LF-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/napari-LF-{{ version }}.tar.gz
   sha256: 8264942da5f1de030ecfc2ae0438d407aba1dcdec16a243c77ebd6610cc48634
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
   script_env:
     - QT_QPA_PLATFORM=offscreen
 
 requirements:
   host:
     - pip
-    - python >=3.7
+    - python {{ python_min }}
     - setuptools
     - setuptools-scm
     - wheel
@@ -30,7 +30,7 @@ requirements:
     - numpy
     - opencv
     - pyopencl
-    - python >=3.7
+    - python >={{ python_min }}
     - pytorch
     - pytorch-lightning
     - qtpy      # Imported but not listed as requirement
@@ -49,6 +49,7 @@ test:
   requires:
     - pip
     - pyqt
+    - python {{ python_min }}
 
 about:
   home: https://pypi.org/project/napari-LF
